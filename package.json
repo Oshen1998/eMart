@@ -1,0 +1,49 @@
+{
+  "name": "eMart",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "start:no-cache": "react-native start --reset-cache",
+    "test": "jest",
+    "pod": "npx pod-install",
+    "env:copy:local": "cp .env.local .env",
+    "env:copy:qa": "cp .env.qa .env",
+    "android:build": "cd android && ./gradlew assembleRelease",
+    "android:clean": "cd android && ./gradlew clean",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "npx prettier --check .",
+    "format:fix": "npx prettier --write .",
+    "prerelease": "npm version prerelease && yarn extract",
+    "extract": "node -p \"'export const VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.js && npm run format:fix && git add . && git commit -m 'build: version update' && git push --tags",
+    "postinstall": "yarn pod && patch-package",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native/eslint-config": "^0.72.2",
+    "@react-native/metro-config": "^0.72.11",
+    "@tsconfig/react-native": "^3.0.0",
+    "@types/react": "^18.0.24",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.2.1",
+    "eslint": "^8.19.0",
+    "jest": "^29.2.1",
+    "metro-react-native-babel-preset": "0.76.8",
+    "prettier": "^2.4.1",
+    "react-test-renderer": "18.2.0",
+    "typescript": "4.8.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
